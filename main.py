@@ -30,6 +30,7 @@ import sys  # System operations
 import os  # Operating system interface
 
 # Import our custom game modules
+# @STUDENT-EDIT-Day1-2: Notice how settings variables are imported and used here
 from settings import *  # Game configuration settings
 from main_menu import MainMenu  # Main menu system
 import game_settings  # Audio and game settings
@@ -64,7 +65,7 @@ class Game:
 
         # Create the game window with specified dimensions
         self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-        pygame.display.set_caption("PyDew Valley: GAIC 26")  # Set window title
+        pygame.display.set_caption(TITLE)  # Set window title
 
         # Create a clock to control frame rate (how fast the game runs)
         self.clock = pygame.time.Clock()
@@ -213,15 +214,20 @@ class Game:
                 ):
                     self.character_screen.toggle()  # Show/hide character screen
 
-                # Check if player pressed ESC to toggle settings menu during gameplay
-                # But only if the settings menu isn't already open (let it handle its own ESC)
+                # Check if player pressed ESC to close submenus or open settings
                 if (
                     event.type == pygame.KEYDOWN
                     and event.key == pygame.K_ESCAPE
                     and not self.show_main_menu
                     and not self.show_settings_during_game
                 ):
-                    self.show_settings_during_game = True
+                    if self.character_screen and self.character_screen.visible:
+                        self.character_screen.toggle()  # Close inventory screen
+                    elif self.level and (self.level.shop_active or self.level.dialogue_system.active):
+                        # Let level run/events handle closing dialogue or shop (avoid opening settings)
+                        pass
+                    else:
+                        self.show_settings_during_game = True
 
             # UPDATE GAME STATE - Decide what to update based on current screen
             if self.show_main_menu:
