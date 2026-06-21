@@ -36,6 +36,7 @@ class EmotionCNN(pl.LightningModule):
     """Compact CNN for emotion recognition (must match the training notebook)."""
 
     def __init__(self, num_classes=6, learning_rate=0.001):
+        """Define the three conv blocks and the classifier head."""
         super().__init__()
         self.save_hyperparameters()
         self.learning_rate = learning_rate
@@ -68,6 +69,7 @@ class EmotionCNN(pl.LightningModule):
         )
 
     def forward(self, x):
+        """Run an image batch through the network and return per-emotion scores."""
         x = self.conv1(x)
         x = self.conv2(x)
         x = self.conv3(x)
@@ -83,6 +85,7 @@ class EmotionDetector(threading.Thread):
     """
 
     def __init__(self, emotions_deque, show_camera_preview=False):
+        """Set up the detector thread; results are appended to the shared `emotions_deque`."""
         super().__init__()
         self.daemon = True  # Thread will close when the main program exits
         self._stopper = threading.Event()
@@ -93,6 +96,7 @@ class EmotionDetector(threading.Thread):
         self.face_cascade = None
 
     def stop(self):
+        """Signal the detection loop to exit."""
         self._stopper.set()
 
     def _load_model(self):

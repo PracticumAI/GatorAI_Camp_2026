@@ -53,21 +53,16 @@ class Game:
     # [2] Game class structure; shows class definition, initialization with pygame setup
 
     def __init__(self):
-        """
-        Initialize the Game - Set Up Everything We Need
-        ==============================================
-        This method runs when we create a new Game object.
-        It sets up pygame, creates the window, and prepares our game.
-        """
-        # Initialize pygame - this must be done before using pygame features
+        """Start pygame, open the window, and set up the menu and game-state flags."""
+        # pygame.init() must run before any other pygame call
         pygame.init()
-        pygame.mixer.init()  # Initialize audio system for sound effects and music
+        pygame.mixer.init()  # audio system for sound effects and music
 
-        # Create the game window with specified dimensions
+        # Create the game window and title it
         self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-        pygame.display.set_caption(TITLE)  # Set window title
+        pygame.display.set_caption(TITLE)
 
-        # Create a clock to control frame rate (how fast the game runs)
+        # Clock caps the frame rate so the game runs at a steady speed
         self.clock = pygame.time.Clock()
 
         # Change to the directory where our game files are located
@@ -185,16 +180,11 @@ class Game:
         self.emotion_detector.start()
 
     def run(self):
-        """
-        Main Game Loop - The Heart That Keeps Our Game Running
-        =====================================================
-        This is the main game loop that runs continuously until the player quits.
-        Every frame (many times per second), this loop:
-        1. Checks for player input (keyboard, mouse, window close)
-        2. Updates the game world or menu
-        3. Draws everything to the screen
+        """The main game loop: every frame, handle input, update state, then draw.
 
-        This is a fundamental concept in game programming!"""
+        Runs forever until the player quits. This input -> update -> draw cycle is
+        a fundamental game-programming concept.
+        """
         # Start the emotion detector thread once the main loop begins
         if self.emotion_detector and not self.emotion_detector.is_alive():
             self.emotion_detector.start()

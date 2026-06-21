@@ -25,44 +25,10 @@ import game_settings
 
 
 class Overlay:
-    """
-    UI Overlay Class - Game Interface Manager
-    ========================================
-    This class manages all the visual elements that appear on top of the game world,
-    including tool indicators, seed indicators, keyboard hints, and inventory access.
-
-    EDUCATIONAL CONCEPTS:
-    - User Interface design principles
-    - Image resource management
-    - Coordinate positioning systems
-    - Visual communication in games
-    - File organization and loading
-    - Surface manipulation and scaling
-
-    The overlay helps players understand:
-    - What tool they currently have selected
-    - What seed they currently have selected
-    - What keyboard controls are available
-    - How to access their inventory
-    """
+    """Draws the on-screen HUD: current tool/seed, keyboard hints, inventory, and emotions."""
 
     def __init__(self, player, emotions_deque):
-        """
-        Initialize the UI Overlay System
-        ===============================
-        Loads all the necessary graphics for the UI and sets up positioning.
-
-        EDUCATIONAL CONCEPTS:
-        - Constructor initialization with dependencies
-        - File path construction and management
-        - Dictionary comprehensions for bulk operations
-        - Image loading and format optimization
-        - Surface scaling and transformation
-        - Resource management and organization
-
-        Parameters:
-        player: The player object to get tool/seed information from
-        """
+        """Load all UI graphics (tool/seed/key icons, emotion icons) and set positions."""
         # BASIC SETUP
         # Get the main game display surface
         self.display_surface = pygame.display.get_surface()
@@ -164,19 +130,7 @@ class Overlay:
                 )
 
     def display(self):
-        """
-        Display the UI Overlay
-        ======================
-        Draws all the UI elements onto the screen, including tool/seed indicators,
-        keyboard hints, and emotion icons.
-
-        EDUCATIONAL CONCEPTS:
-        - Real-time UI updates
-        - Conditional rendering
-        - Surface blitting and positioning
-        - Looping through data structures
-        - Visual feedback for game state
-        """
+        """Draw the tool/seed indicators, keyboard hints, inventory icon, and emotion icons."""
         # TOOL DISPLAY
         tool_surf = self.tools_surf[self.player.selected_tool]
         tool_rect = tool_surf.get_rect(midbottom=OVERLAY_POSITIONS["tool"])

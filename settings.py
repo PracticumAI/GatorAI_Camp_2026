@@ -119,18 +119,18 @@ PLAYER_SPEED = 200
 # =============================================================================
 # These dictionaries control the game's economy
 
-# How much money you get for selling items
+# How much money you get for selling each item (tomato is the most valuable)
 SALE_PRICES = {
-    "wood": 4,  # Wood sells for 4 coins
-    "apple": 2,  # Apples sell for 2 coins
-    "corn": 10,  # Corn sells for 10 coins
-    "tomato": 20,  # Tomatoes sell for 20 coins (most valuable!)
+    "wood": 4,
+    "apple": 2,
+    "corn": 10,
+    "tomato": 20,
 }
 
-# How much it costs to buy seeds
+# How much it costs to buy each seed
 PURCHASE_PRICES = {
-    "corn": 4,  # Corn seeds cost 4 coins
-    "tomato": 5,  # Tomato seeds cost 5 coins
+    "corn": 4,
+    "tomato": 5,
 }
 
 # =============================================================================

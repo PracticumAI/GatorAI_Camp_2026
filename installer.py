@@ -8,6 +8,7 @@ import importlib
 
 
 def install(package_name):
+    """Import `package_name` if present, otherwise pip-install it (binary wheels only)."""
     # Some packages are installed under one name but imported under another.
     # This map tells us what to actually "import" to check if it's present.
     #   - opencv-python      -> import cv2
